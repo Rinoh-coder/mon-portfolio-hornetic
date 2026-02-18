@@ -1,24 +1,39 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import { 
   ArrowRight, 
+  BookOpen,
   BriefcaseBusiness,
   Camera,
   Code, 
   Cpu, 
+  Database,
   Download,
+  FileDown,
+  FolderKanban,
   Globe, 
-  Layers, 
+  Handshake,
   Layout, 
   Mail, 
+  Map,
+  Menu,
   MapPin, 
   Phone, 
+  PhoneCall,
   ShieldCheck, 
+  Sparkles,
   Terminal, 
+  UserRound,
+  Wrench,
   Wifi 
 } from "lucide-react";
 
 export default function Home() {
+  const [showFullParcours, setShowFullParcours] = useState(false);
+
   return (
     <main className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-blue-100">
       
@@ -32,21 +47,58 @@ export default function Home() {
           <div className="hidden md:flex gap-8 text-sm font-medium text-slate-600">
             <a href="#about" className="hover:text-blue-600 transition">À propos</a>
             <a href="#competences" className="hover:text-blue-600 transition">Compétences</a>
-            <a href="#hornetic" className="hover:text-orange-600 transition">Hornetic Services</a>
+            <a href="#portfolio" className="hover:text-blue-600 transition">Mon Portfolio</a>
             <a href="#contact" className="hover:text-blue-600 transition">Contacts</a>
           </div>
 
-          <div className="flex gap-4">
+          <div className="flex items-center gap-2 md:gap-4">
+            <details className="relative md:hidden">
+              <summary className="list-none w-10 h-10 rounded-full border border-slate-200 bg-white text-slate-700 flex items-center justify-center cursor-pointer hover:border-blue-200 hover:text-blue-600 transition">
+                <Menu size={18} />
+              </summary>
+              <div className="absolute right-0 mt-2 w-64 rounded-2xl border border-slate-200 bg-white p-3 shadow-xl">
+                <a href="#about" className="flex items-center gap-2 px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-50">
+                  <BookOpen size={16} /> À propos
+                </a>
+                <a href="#competences" className="flex items-center gap-2 px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-50">
+                  <Sparkles size={16} /> Compétences
+                </a>
+                <a href="#portfolio" className="flex items-center gap-2 px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-50">
+                  <FolderKanban size={16} /> Mon Portfolio
+                </a>
+                <a href="#hornetic" className="flex items-center gap-2 px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-50">
+                  <Handshake size={16} /> Hornetic Services
+                </a>
+                <a href="#contact" className="flex items-center gap-2 px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-50">
+                  <PhoneCall size={16} /> Contacts
+                </a>
+              </div>
+            </details>
+
              {/* Lien vers la partie publique Hornetic */}
              <Link href="/hornetic" className="hidden md:block px-4 py-2 text-sm font-semibold text-slate-700 hover:text-orange-600 transition">
               Supporter Hornetic $
             </Link>
+            <Link
+              href="/hornetic"
+              aria-label="Supporter Hornetic"
+              className="md:hidden w-10 h-10 rounded-full border border-orange-200 bg-orange-50 text-orange-600 flex items-center justify-center hover:bg-orange-100 transition"
+            >
+              <Handshake size={18} />
+            </Link>
             {/* Bouton Connexion / Dashboard */}
             <Link 
               href="/auth/login" 
-              className="bg-slate-900 text-white px-5 py-2 rounded-full text-sm font-medium hover:bg-slate-800 transition shadow-lg flex items-center gap-2"
+              className="hidden md:flex bg-slate-900 text-white px-5 py-2 rounded-full text-sm font-medium hover:bg-slate-800 transition shadow-lg items-center gap-2"
             >
               Espace Client <ArrowRight size={16} />
+            </Link>
+            <Link
+              href="/auth/login"
+              aria-label="Espace Client"
+              className="md:hidden w-10 h-10 rounded-full bg-slate-900 text-white flex items-center justify-center hover:bg-slate-800 transition shadow-lg"
+            >
+              <UserRound size={18} />
             </Link>
           </div>
         </div>
@@ -62,13 +114,13 @@ export default function Home() {
           
           <h1 className="text-5xl md:text-7xl font-extrabold mb-6 tracking-tight text-slate-900">
             Étudiant &quot;Futur Ingénieur&quot; <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Télécoms & Réseaux</span><br />
-            & Créateur Digital.
+            ET Créateur Digital.
           </h1>
           
           <p className="text-xl text-slate-600 mb-10 max-w-2xl mx-auto leading-relaxed">
             Je suis <strong>RATOMBOSON Tina Roédrino</strong>. Étudiant en Master 1 à l&apos;ESP-Antsiranana, 
-            mention STIC parcours Télécommunications et Réseaux; et fondateur d&apos;<strong>Hornetic:Code&Craft</strong>.
-            On propose des solutions numériques sur mesure : du développement web à l&apos;assistance IT, en passant par le graphisme.
+            mention STIC parcours Télécommunications et Réseaux; aussi fondateur d&apos;<strong>Hornetic:Code&Craft</strong>.
+            <br/>
             <br />Mes Qualités ?
                 <ul className="list-disc list-inside mt-4 text-left max-w-md mx-auto">
                   <li><em>Curiosité</em></li>
@@ -83,8 +135,131 @@ export default function Home() {
               <Code size={20} /> Voir mon Portfolio
             </Link>
             <a href="#hornetic" className="px-8 py-4 bg-white border border-slate-200 text-slate-700 rounded-xl font-bold hover:border-orange-200 hover:bg-orange-50 hover:text-orange-600 transition flex items-center justify-center gap-2">
-              <Layers size={20} /> Services Hornetic
+              <Wrench size={20} /> Services Hornetic
             </a>
+          </div>
+        </div>
+      </section>
+
+      {/* --- ABOUT & STATS (Résumé CV) --- */}
+      <section id="about" className="py-20 bg-white border-y border-slate-100">
+        <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
+          <div className="relative">
+            {/* Photo de profil depuis /public/profil.png */}
+            <div className="aspect-square rounded-2xl bg-slate-100 relative overflow-hidden border border-slate-200">
+               <div className="absolute inset-0 p-4 sm:p-6 md:p-8">
+                 <Image
+                   src="/profil.png"
+                   alt="Photo de profil"
+                   fill
+                   sizes="(max-width: 768px) 80vw, (max-width: 1024px) 45vw, 32rem"
+                   className="object-contain"
+                 />
+               </div>
+            </div>
+            {/* Carte Flottante */}
+            <a
+              href="/cv.pdf"
+              download
+              className="absolute -bottom-6 -right-6 bg-white p-6 rounded-xl shadow-xl border border-slate-100 max-w-xs block hover:shadow-2xl hover:-translate-y-1 transition"
+            >
+              <div className="flex items-center gap-4 mb-3">
+                <div className="p-3 bg-red-100 text-red-600 rounded-lg">
+                  <FileDown size={24} />
+                </div>
+                <div>
+                  <p className="text-xs text-slate-500 font-bold uppercase">Rinoh</p>
+                  <p className="font-bold text-slate-900">Obtenir mon CV</p>
+                </div>
+              </div>
+              <p className="text-sm text-slate-600 flex items-center gap-2">
+                Télécharger en PDF <Download size={16} />
+              </p>
+            </a>
+          </div>
+
+          <div>
+            <h2 className="text-3xl font-bold mb-6">Mon Parcours</h2>
+            <p className="text-slate-600 mb-6 leading-relaxed">
+              Titulaire d&apos;une Licence en Électronique, Informatique et Technologie, je poursuis actuellement un 
+              <strong> Master en Télécommunication et Réseaux</strong>. Mon objectif est d&apos;allier cybersécurité et IA pour optimiser les infrastructures de demain.
+            </p>
+            
+            <div className="space-y-4">
+              <div className="flex gap-4 items-start">
+                <div className="mt-1 min-w-[4px] h-[24px] bg-blue-600 rounded-full"></div>
+                <div>
+                  <h4 className="font-bold text-slate-900">Master 1 en Télécommunication et Réseaux </h4>
+                  <p className="text-sm text-slate-500">En 2026, au sein de l&apos;École Supérieure Polytechnique d&apos;Antsiranana</p>
+                </div>
+              </div>
+              <div className="flex gap-4 items-start">
+                <div className="mt-1 min-w-[4px] h-[24px] bg-slate-300 rounded-full"></div>
+                <div>
+                  <h4 className="font-bold text-slate-900">Vice-Président de l&apos;AEOM</h4>
+                  <p className="text-sm text-slate-500">Désigné vice-président de l&apos;association AEOM(Association 
+                    des Étudiants Originaire de la Mahavavy) pour l&apos;année scolaire 2025-2026, au sein de l&apos;université UNA
+                  </p>
+                </div>
+              </div>
+              <div className="flex gap-4 items-start">
+                <div className="mt-1 min-w-[4px] h-[24px] bg-slate-300 rounded-full"></div>
+                <div>
+                  <h4 className="font-bold text-slate-900">Responsable Com&apos; & Graphisme</h4>
+                  <p className="text-sm text-slate-500">Depuis 2024 au sein de l&apos;Association Lab&apos;Vision</p>
+                </div>
+              </div>
+              <div className="flex gap-4 items-start">
+                <div className="mt-1 min-w-[4px] h-[24px] bg-slate-300 rounded-full"></div>
+                <div>
+                  <h4 className="font-bold text-slate-900">Ambassadeur ICT Academy Huawei</h4>
+                  <p className="text-sm text-slate-500">Depuis 2024 au sein du Club Huawei de l&apos;
+                     École Supérieure Polytechnique d&apos;Antsiranana</p>
+                </div>
+              </div>
+
+              {showFullParcours && (
+                <div className="space-y-4">
+                  <div className="flex gap-4 items-start">
+                    <div className="mt-1 min-w-[4px] h-[24px] bg-slate-300 rounded-full"></div>
+                    <div>
+                      <h4 className="font-bold text-slate-900">Hackaton RedShalk</h4>
+                      <p className="text-sm text-slate-500">2nd place lors de l&apos;Hackaton en groupe,
+                         RedShalk 2025 à Antsiranana co-organisé par Orange Madagascar </p>
+                    </div>
+                  </div>
+                  <div className="flex gap-4 items-start">
+                    <div className="mt-1 min-w-[4px] h-[24px] bg-slate-300 rounded-full"></div>
+                    <div>
+                      <h4 className="font-bold text-slate-900">Responsable Designer</h4>
+                      <p className="text-sm text-slate-500">Designer du club WebRed en 2024</p>
+                    </div>
+                  </div>
+                  <div className="flex gap-4 items-start">
+                    <div className="mt-1 min-w-[4px] h-[24px] bg-slate-300 rounded-full"></div>
+                    <div>
+                      <h4 className="font-bold text-slate-900">Vice-président des étudiants STICiens</h4>
+                      <p className="text-sm text-slate-500">Vice-présidents des étudiants au sein de la mention STIC de l&apos;ESP-Antsiranana en 2024</p>
+                    </div>
+                  </div>
+                  <div className="flex gap-4 items-start">
+                    <div className="mt-1 min-w-[4px] h-[24px] bg-slate-300 rounded-full"></div>
+                    <div>
+                      <h4 className="font-bold text-slate-900">Stagiaire ouvrier</h4>
+                      <p className="text-sm text-slate-500">Stage pour la gestion des données des étudiants de l&apos;ESP-Antsiranana de janvier à février 2024</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              <button
+                type="button"
+                onClick={() => setShowFullParcours((prev) => !prev)}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-100 text-slate-700 text-sm font-semibold hover:bg-slate-200 transition"
+              >
+                {showFullParcours ? "Voir moins" : "Voir plus"}
+              </button>
+            </div>
           </div>
         </div>
       </section>
@@ -99,9 +274,9 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 overflow-x-auto md:overflow-visible snap-x snap-mandatory pb-2">
             {/* Carte expérience - copier ce bloc pour ajouter une nouvelle expérience */}
-            <article className="bg-slate-50 border border-slate-200 rounded-2xl p-6 hover:shadow-lg transition">
+            <article className="bg-slate-50 border border-slate-200 rounded-2xl p-6 hover:shadow-lg transition min-w-[280px] sm:min-w-[320px] md:min-w-0 shrink-0 snap-start">
               <div className="w-12 h-12 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center mb-4">
                 <BriefcaseBusiness size={22} />
               </div>
@@ -113,7 +288,7 @@ export default function Home() {
             </article>
 
             {/* Carte expérience - copier ce bloc pour ajouter une nouvelle expérience */}
-            <article className="bg-slate-50 border border-slate-200 rounded-2xl p-6 hover:shadow-lg transition">
+            <article className="bg-slate-50 border border-slate-200 rounded-2xl p-6 hover:shadow-lg transition min-w-[280px] sm:min-w-[320px] md:min-w-0 shrink-0 snap-start">
               <div className="w-12 h-12 rounded-xl bg-cyan-100 text-cyan-600 flex items-center justify-center mb-4">
                 <Wifi size={22} />
               </div>
@@ -125,9 +300,9 @@ export default function Home() {
             </article>
 
             {/* Carte expérience - copier ce bloc pour ajouter une nouvelle expérience */}
-            <article className="bg-slate-50 border border-slate-200 rounded-2xl p-6 hover:shadow-lg transition">
+            <article className="bg-slate-50 border border-slate-200 rounded-2xl p-6 hover:shadow-lg transition min-w-[280px] sm:min-w-[320px] md:min-w-0 shrink-0 snap-start">
               <div className="w-12 h-12 rounded-xl bg-orange-100 text-orange-600 flex items-center justify-center mb-4">
-                <Layers size={22} />
+                <Map size={22} />
               </div>
               <h3 className="text-lg font-bold text-slate-900">Expériences Terrain</h3>
               <p className="text-sm text-slate-500 mt-1">WWF, service client, projets variés</p>
@@ -140,7 +315,7 @@ export default function Home() {
       </section>
 
       {/* --- APERÇU PORTFOLIO --- */}
-      <section id="apercu-portfolio" className="py-20 px-6 bg-slate-50">
+      <section id="portfolio" className="py-20 px-6 bg-slate-50">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
             <div>
@@ -184,91 +359,6 @@ export default function Home() {
               <h3 className="font-bold text-slate-900">Community Manager</h3>
               <p className="text-sm text-slate-600 mt-2">Stratégie de contenu et animation de communautés.</p>
             </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* --- ABOUT & STATS (Résumé CV) --- */}
-      <section id="about" className="py-20 bg-white border-y border-slate-100">
-        <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
-          <div className="relative">
-            {/* Photo de profil depuis /public/profil.png */}
-            <div className="aspect-square rounded-2xl bg-slate-100 relative overflow-hidden border border-slate-200">
-               <div className="absolute inset-0 p-4 sm:p-6 md:p-8">
-                 <Image
-                   src="/profil.png"
-                   alt="Photo de profil"
-                   fill
-                   sizes="(max-width: 768px) 80vw, (max-width: 1024px) 45vw, 32rem"
-                   className="object-contain"
-                 />
-               </div>
-            </div>
-            {/* Carte Flottante */}
-            <a
-              href="/cv.pdf"
-              download
-              className="absolute -bottom-6 -right-6 bg-white p-6 rounded-xl shadow-xl border border-slate-100 max-w-xs block hover:shadow-2xl hover:-translate-y-1 transition"
-            >
-              <div className="flex items-center gap-4 mb-3">
-                <div className="p-3 bg-red-100 text-red-600 rounded-lg">
-                  <Globe size={24} />
-                </div>
-                <div>
-                  <p className="text-xs text-slate-500 font-bold uppercase">Rinoh</p>
-                  <p className="font-bold text-slate-900">Obtenir mon CV</p>
-                </div>
-              </div>
-              <p className="text-sm text-slate-600 flex items-center gap-2">
-                Télécharger en PDF <Download size={16} />
-              </p>
-            </a>
-          </div>
-
-          <div>
-            <h2 className="text-3xl font-bold mb-6">Mon Parcours</h2>
-            <p className="text-slate-600 mb-6 leading-relaxed">
-              Titulaire d&apos;une Licence en Électronique, Informatique et Technologie, je poursuis actuellement un 
-              <strong> Master en Télécommunication et Réseaux</strong>. Mon objectif est d&apos;allier cybersécurité et IA pour optimiser les infrastructures de demain.
-            </p>
-            
-            <div className="space-y-4">
-              <div className="flex gap-4 items-start">
-                <div className="mt-1 min-w-[4px] h-[24px] bg-blue-600 rounded-full"></div>
-                <div>
-                  <h4 className="font-bold text-slate-900">Master 1 STIC (En cours)</h4>
-                  <p className="text-sm text-slate-500">École Supérieure Polytechnique d&apos;Antsiranana</p>
-                </div>
-              </div>
-              <div className="flex gap-4 items-start">
-                <div className="mt-1 min-w-[4px] h-[24px] bg-slate-300 rounded-full"></div>
-                <div>
-                  <h4 className="font-bold text-slate-900">Responsable Com&apos; & Graphisme</h4>
-                  <p className="text-sm text-slate-500">Association Lab&apos;Vision</p>
-                </div>
-              </div>
-              <div className="flex gap-4 items-start">
-                <div className="mt-1 min-w-[4px] h-[24px] bg-slate-300 rounded-full"></div>
-                <div>
-                  <h4 className="font-bold text-slate-900">Ambassadeur ICT Academy Huawei</h4>
-                  <p className="text-sm text-slate-500">Club Huawei, École Supérieure Polytechnique d&apos;Antsiranana</p>
-                </div>
-              </div>
-              <div className="flex gap-4 items-start">
-                <div className="mt-1 min-w-[4px] h-[24px] bg-slate-300 rounded-full"></div>
-                <div>
-                  <h4 className="font-bold text-slate-900">Expérience Terrain</h4>
-                  <p className="text-sm text-slate-500">Chef de chantier (WWF), Barman, Ouvrier...</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-8 flex gap-3 flex-wrap">
-              <span className="px-3 py-1 bg-slate-100 rounded-md text-sm font-medium text-slate-600">Python</span>
-              <span className="px-3 py-1 bg-slate-100 rounded-md text-sm font-medium text-slate-600">Linux Mint</span>
-              <span className="px-3 py-1 bg-slate-100 rounded-md text-sm font-medium text-slate-600">Next.js</span>
-              <span className="px-3 py-1 bg-slate-100 rounded-md text-sm font-medium text-slate-600">Cisco Packet Tracer</span>
-            </div>
           </div>
         </div>
       </section>
@@ -411,7 +501,7 @@ export default function Home() {
                 <span className="font-medium">Linux</span>
              </div>
              <div className="p-4 bg-slate-800 rounded-xl hover:bg-slate-700 transition">
-                <Layers className="mx-auto mb-2 text-purple-400" />
+                <Database className="mx-auto mb-2 text-purple-400" />
                 <span className="font-medium">SQL</span>
              </div>
           </div>
