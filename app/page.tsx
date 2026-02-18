@@ -23,14 +23,14 @@ export default function Home() {
       <nav className="fixed top-0 w-full z-50 glass-nav transition-all duration-300">
         <div className="max-w-7xl mx-auto px-6 h-16 flex justify-between items-center">
           <Link href="/" className="text-xl font-bold tracking-tighter">
-            Tina<span className="text-blue-600">Roédrino</span>.
+            Rinoh~<span className="text-blue-600">Roédrino</span>.
           </Link>
           
           <div className="hidden md:flex gap-8 text-sm font-medium text-slate-600">
             <a href="#about" className="hover:text-blue-600 transition">À propos</a>
             <a href="#competences" className="hover:text-blue-600 transition">Compétences</a>
             <a href="#hornetic" className="hover:text-orange-600 transition">Hornetic Services</a>
-            <a href="#contact" className="hover:text-blue-600 transition">Contact</a>
+            <a href="#contact" className="hover:text-blue-600 transition">Contacts</a>
           </div>
 
           <div className="flex gap-4">
@@ -58,15 +58,23 @@ export default function Home() {
           </div>
           
           <h1 className="text-5xl md:text-7xl font-extrabold mb-6 tracking-tight text-slate-900">
-            Ingénieur <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Télécoms & Réseaux</span><br />
+            Étudiant "Futur Ingénieur" <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Télécoms & Réseaux</span><br />
             & Créateur Digital.
           </h1>
           
           <p className="text-xl text-slate-600 mb-10 max-w-2xl mx-auto leading-relaxed">
-            Je suis <strong>Tina Roédrino</strong>. Étudiant en Master à l'ESP-Antsiranana et fondateur d'<strong>Hornetic</strong>.
-            Je conçois des architectures réseaux sécurisées et des solutions web modernes.
+            Je suis <strong>RATOMBOSON Tina Roédrino</strong>. Étudiant en Master 1 à l'ESP-Antsiranana, 
+            mention STIC parcours Télécommunications et Réseaux; et fondateur d'<strong>Hornetic:Code&Craft</strong>.
+            On propose des solutions numériques sur mesure : du développement web à l'assistance IT, en passant par le graphisme.
+            <br />Mes Qualités ?
+                      <ul className="list-disc list-inside mt-4 text-left max-w-md mx-auto">
+            <li><em>Curiosité</em></li>
+            <li><em>Esprit d'analyse</em></li>
+            <li><em>Travail en équipe</em></li>
+            <li><em>Autonomie</em></li>
+            <li><em>Capacité d'adaptation</em></li>
+          </ul>
           </p>
-
           <div className="flex flex-col md:flex-row justify-center gap-4">
             <Link href="/portfolio" className="px-8 py-4 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition shadow-xl shadow-blue-200/50 flex items-center justify-center gap-2">
               <Code size={20} /> Voir mon Portfolio
@@ -77,7 +85,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
       {/* --- ABOUT & STATS (Résumé CV) --- */}
       <section id="about" className="py-20 bg-white border-y border-slate-100">
         <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
@@ -95,8 +102,8 @@ export default function Home() {
                   <Globe size={24} />
                 </div>
                 <div>
-                  <p className="text-xs text-slate-500 font-bold uppercase">Ambassadeur</p>
-                  <p className="font-bold text-slate-900">Huawei ICT Academy</p>
+                  <p className="text-xs text-slate-500 font-bold uppercase">Rinoh</p>
+                  <p className="font-bold text-slate-900">IT problems solver</p>
                 </div>
               </div>
             </div>
@@ -122,6 +129,13 @@ export default function Home() {
                 <div>
                   <h4 className="font-bold text-slate-900">Responsable Com' & Graphisme</h4>
                   <p className="text-sm text-slate-500">Association Lab'Vision</p>
+                </div>
+              </div>
+              <div className="flex gap-4 items-start">
+                <div className="mt-1 min-w-[4px] h-[24px] bg-slate-300 rounded-full"></div>
+                <div>
+                  <h4 className="font-bold text-slate-900">Ambassadeur ICT Academy Huawei</h4>
+                  <p className="text-sm text-slate-500">Club Huawei, École Supérieure Polytechnique d'Antsiranana</p>
                 </div>
               </div>
               <div className="flex gap-4 items-start">
