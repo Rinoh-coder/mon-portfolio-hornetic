@@ -339,6 +339,7 @@ export default function Home() {
                    alt="Photo de profil"
                    fill
                    sizes="(max-width: 768px) 80vw, (max-width: 1024px) 45vw, 32rem"
+                   quality={72}
                    className="object-contain"
                  />
                </div>
@@ -640,6 +641,7 @@ export default function Home() {
                 alt="Galerie précédente"
                 fill
                 sizes="(max-width: 768px) 35vw, 25vw"
+                quality={45}
                 className="object-cover"
               />
             </div>
@@ -653,8 +655,8 @@ export default function Home() {
                 src={getGalleryImage(0)}
                 alt="Image de galerie"
                 fill
-                priority
                 sizes="(max-width: 768px) 42vw, 34vw"
+                quality={58}
                 className="object-cover"
               />
               <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/25 to-transparent" />
@@ -670,6 +672,7 @@ export default function Home() {
                 alt="Galerie suivante"
                 fill
                 sizes="(max-width: 768px) 35vw, 25vw"
+                quality={45}
                 className="object-cover"
               />
             </div>
