@@ -1,0 +1,11 @@
+[
+  {
+    "key": "insert",
+    "command": "-toggleOvertype"
+  },
+  {
+    "key": "escape escape",
+    "command": "workbench.action.focusActiveEditorGroup",
+    "when": "editorTextFocus"
+  }
+]

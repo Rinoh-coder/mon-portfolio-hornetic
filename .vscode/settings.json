@@ -1,0 +1,10 @@
+{
+  "editor.overtype": false,
+  "workbench.editor.enablePreview": false,
+  "files.autoSave": "afterDelay",
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "vim.startInInsertMode": true
+}

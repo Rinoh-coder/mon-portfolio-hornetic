@@ -20,6 +20,17 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Editor Reliability (VS Code)
+
+If editing is blocked (you can delete but cannot type), use this quick check before opening an issue:
+
+1. Check status bar: if `OVR` is visible, disable overtype mode.
+2. Check status bar: if `NORMAL`/`VIM` is visible, switch Vim to insert mode.
+3. Ensure you are editing a real file tab (not `Diff`, `Search`, or preview-only context).
+4. Run `Developer: Reload Window`.
+
+Detailed troubleshooting guide: `docs/editor-troubleshooting.md`.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
