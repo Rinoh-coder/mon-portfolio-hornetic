@@ -7,7 +7,7 @@ export default function Home() {
       
       {/* --- NAVBAR --- */}
       <nav className="p-6 flex justify-between items-center max-w-7xl mx-auto">
-        <h1 className="text-2xl font-bold text-blue-600">Tina Roédrino.</h1>
+        <h1 className="text-2xl font-bold text-blue-600">RATOMBOSON Tina Roédrino.</h1>
         <div className="space-x-6 text-sm font-medium hidden md:block">
           <a href="#about" className="hover:text-blue-600 transition">À propos</a>
           <a href="#portfolio" className="hover:text-blue-600 transition">Projets</a>
