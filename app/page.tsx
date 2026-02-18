@@ -45,6 +45,9 @@ export default function Home() {
           <a href="#hornetic" className="px-8 py-3 bg-white border border-slate-300 text-slate-700 rounded-lg font-semibold hover:bg-slate-50 transition">
             Mes services
           </a>
+          <a href="#" className="px-8 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition"></a>
+            Consulter mon CV
+          </a>
         </div>
       </section>
 
