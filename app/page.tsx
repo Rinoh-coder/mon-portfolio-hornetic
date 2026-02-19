@@ -20,7 +20,7 @@ import {
   Handshake,
   Layout, 
   Mail, 
-  Map,
+  Map as MapIcon,
   Menu,
   MapPin, 
   Phone, 
@@ -38,9 +38,9 @@ export default function Home() {
   const [showFullParcours, setShowFullParcours] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [expandedSkillGroups, setExpandedSkillGroups] = useState({
-    web: false,
-    support: false,
-    design: false,
+    programming: false,
+    os: false,
+    software: false,
   });
 
   // Galerie: ajoute/supprime simplement les chemins ici.
@@ -127,45 +127,59 @@ export default function Home() {
   type SkillItem = { name: string; level: MasteryLevel };
 
   const masteryConfig: Record<MasteryLevel, { width: string; chip: string }> = {
-    Basique: { width: "w-1/4", chip: "bg-slate-700 text-slate-200" },
-    "Intermédiaire": { width: "w-1/2", chip: "bg-blue-900/50 text-blue-200" },
-    "Avancé": { width: "w-3/4", chip: "bg-blue-800/60 text-blue-100" },
-    Expert: { width: "w-full", chip: "bg-blue-700/70 text-white" },
-    Maternelle: { width: "w-full", chip: "bg-slate-600 text-white" },
+    Basique: { width: "w-1/4", chip: "bg-slate-700/80 text-slate-100" },
+    "Intermédiaire": { width: "w-1/2", chip: "bg-amber-600/70 text-amber-50" },
+    "Avancé": { width: "w-3/4", chip: "bg-emerald-600/70 text-emerald-50" },
+    Expert: { width: "w-full", chip: "bg-indigo-600/70 text-indigo-50" },
+    Maternelle: { width: "w-full", chip: "bg-rose-600/70 text-rose-50" },
   };
 
-  const webDataSkills: SkillItem[] = [
+  const programmingLanguages: SkillItem[] = [
     { name: "HTML/CSS", level: "Expert" },
     { name: "JavaScript", level: "Avancé" },
     { name: "TypeScript", level: "Avancé" },
+    { name: "Python", level: "Avancé" },
+    { name: "SQL", level: "Avancé" },
     { name: "React", level: "Avancé" },
     { name: "Next.js", level: "Avancé" },
     { name: "Tailwind", level: "Avancé" },
     { name: "NestJS", level: "Avancé" },
     { name: "Node.js", level: "Avancé" },
     { name: "Express.js", level: "Avancé" },
-    { name: "Python", level: "Avancé" },
-    { name: "ML", level: "Basique" },
     { name: "MySQL", level: "Avancé" },
     { name: "PostgreSQL", level: "Avancé" },
     { name: "Supabase", level: "Intermédiaire" },
+    { name: "scikit-learn", level: "Basique" },
+    { name: "matplotlib", level: "Intermédiaire" },
+    { name: "pandas", level: "Intermédiaire" },
+    { name: "NumPy", level: "Intermédiaire" },
+    { name: "seaborn", level: "Intermédiaire" },
+  ];
+
+  const spokenLanguages: SkillItem[] = [
+    { name: "Malagasy", level: "Maternelle" },
+    { name: "Français", level: "Avancé" },
+    { name: "Anglais", level: "Intermédiaire" },
+    { name: "Italien", level: "Basique" },
+  ];
+
+  const operatingSystems: SkillItem[] = [
+    { name: "Windows 10", level: "Avancé" },
+    { name: "Windows 11", level: "Avancé" },
+    { name: "Debian", level: "Intermédiaire" },
+    { name: "Ubuntu", level: "Intermédiaire" },
+    { name: "Linux Mint", level: "Intermédiaire" },
+  ];
+
+  const softwareTools: SkillItem[] = [
     { name: "VSCode", level: "Avancé" },
     { name: "Git/GitHub", level: "Intermédiaire" },
     { name: "Docker", level: "Intermédiaire" },
     { name: "XAMPP", level: "Avancé" },
-  ];
-
-  const supportItSkills: SkillItem[] = [
-    { name: "Linux", level: "Intermédiaire" },
-    { name: "Terminal", level: "Intermédiaire" },
-    { name: "GNU/Linux", level: "Intermédiaire" },
     { name: "Cisco Packet Tracer", level: "Intermédiaire" },
     { name: "Wireshark", level: "Basique" },
     { name: "Virtual Machine", level: "Intermédiaire" },
     { name: "Xcos", level: "Intermédiaire" },
-  ];
-
-  const designSkills: SkillItem[] = [
     { name: "Adobe Illustrator", level: "Intermédiaire" },
     { name: "Adobe Photoshop", level: "Intermédiaire" },
     { name: "Adobe Premiere Pro", level: "Basique" },
@@ -180,18 +194,43 @@ export default function Home() {
     { name: "LaTeX", level: "Intermédiaire" },
   ];
 
-  const languageSkills: SkillItem[] = [
-    { name: "Malagasy", level: "Maternelle" },
-    { name: "Français", level: "Avancé" },
-    { name: "Anglais", level: "Intermédiaire" },
-    { name: "Italien", level: "Basique" },
+  const masteryOrder: MasteryLevel[] = [
+    "Expert",
+    "Avancé",
+    "Intermédiaire",
+    "Basique",
+    "Maternelle",
   ];
+  const masteryRank = new Map(masteryOrder.map((level, index) => [level, index]));
+  const sortByMastery = (items: SkillItem[]) =>
+    [...items].sort(
+      (a, b) => (masteryRank.get(a.level) ?? 99) - (masteryRank.get(b.level) ?? 99)
+    );
 
-  const visibleWebSkills = expandedSkillGroups.web ? webDataSkills : webDataSkills.slice(0, 3);
-  const visibleSupportSkills = expandedSkillGroups.support ? supportItSkills : supportItSkills.slice(0, 3);
-  const visibleDesignSkills = expandedSkillGroups.design ? designSkills : designSkills.slice(0, 3);
+  const sortedProgrammingLanguages = sortByMastery(programmingLanguages);
+  const sortBySpokenMastery = (items: SkillItem[]) =>
+    [...items].sort((a, b) => {
+      const normalize = (level: MasteryLevel) => (level === "Maternelle" ? "Expert" : level);
+      const aRank = masteryRank.get(normalize(a.level)) ?? 99;
+      const bRank = masteryRank.get(normalize(b.level)) ?? 99;
+      return aRank - bRank;
+    });
 
-  const toggleSkillGroup = (group: "web" | "support" | "design") => {
+  const sortedSpokenLanguages = sortBySpokenMastery(spokenLanguages);
+  const sortedOperatingSystems = sortByMastery(operatingSystems);
+  const sortedSoftwareTools = sortByMastery(softwareTools);
+
+  const visibleProgrammingLanguages = expandedSkillGroups.programming
+    ? sortedProgrammingLanguages
+    : sortedProgrammingLanguages.slice(0, 3);
+  const visibleOperatingSystems = expandedSkillGroups.os
+    ? sortedOperatingSystems
+    : sortedOperatingSystems.slice(0, 3);
+  const visibleSoftwareTools = expandedSkillGroups.software
+    ? sortedSoftwareTools
+    : sortedSoftwareTools.slice(0, 3);
+
+  const toggleSkillGroup = (group: "programming" | "os" | "software") => {
     setExpandedSkillGroups((prev) => ({ ...prev, [group]: !prev[group] }));
   };
 
@@ -489,7 +528,7 @@ export default function Home() {
             {/* Carte expérience - copier ce bloc pour ajouter une nouvelle expérience */}
             <article className="bg-slate-50 border border-slate-200 rounded-2xl p-6 hover:shadow-lg transition min-w-[280px] sm:min-w-[320px] md:min-w-0 shrink-0 snap-start">
               <div className="w-12 h-12 rounded-xl bg-slate-200 text-slate-700 flex items-center justify-center mb-4">
-                <Map size={22} />
+                <MapIcon size={22} />
               </div>
               <h3 className="text-lg font-bold text-slate-900">Assistant menuisier</h3>
               <p className="text-sm text-slate-500 mt-1">Atelier de menuiserie à Ambilobe</p>
@@ -702,116 +741,217 @@ export default function Home() {
       </section>
 
       {/* --- TECH STACK (Compétences Techniques) --- */}
-      <section id="competences" className={`py-20 ${isDarkMode ? "bg-slate-900/80 text-white" : "bg-slate-900 text-white"}`}>
+      <section
+        id="competences"
+        className={`py-20 ${
+          isDarkMode ? "bg-slate-900/80 text-white" : "bg-gradient-to-b from-white via-slate-50 to-white text-slate-900"
+        }`}
+      >
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12">
              <h2 className="text-3xl font-bold">Arsenal Technique</h2>
-             <p className="text-slate-400 max-w-md mt-4 md:mt-0">
+             <p className={`max-w-md mt-4 md:mt-0 ${isDarkMode ? "text-slate-400" : "text-slate-600"}`}>
                Les outils que j&apos;utilise pour transformer des idées complexes en solutions robustes.
              </p>
           </div>
           
           <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
-             <div className="bg-slate-800/80 border border-slate-700 rounded-2xl p-6 hover:border-blue-500/40 transition">
-                <h3 className="font-bold mb-5 text-cyan-300">Développement Web & Data</h3>
+             <div
+               className={`rounded-2xl p-6 border transition ${
+                 isDarkMode
+                   ? "bg-slate-800/80 border-slate-700 hover:border-blue-500/40"
+                   : "bg-slate-50/80 border-slate-200 hover:border-blue-300 shadow-sm"
+               }`}
+             >
+                <h3 className={`font-bold mb-5 ${isDarkMode ? "text-cyan-300" : "text-cyan-700/90"}`}>
+                  Langages informatiques
+                </h3>
                 <div className="space-y-3">
-                  {visibleWebSkills.map((skill) => (
-                    <div key={skill.name} className="p-3 rounded-lg bg-slate-800 border border-slate-700">
+                  {visibleProgrammingLanguages.map((skill) => (
+                    <div
+                      key={skill.name}
+                      className={`p-3 rounded-lg border ${
+                        isDarkMode ? "bg-slate-800 border-slate-700" : "bg-slate-50 border-slate-200"
+                      }`}
+                    >
                       <div className="flex items-center justify-between gap-2 mb-2">
                         <span className="text-sm">{skill.name}</span>
                         <span className={`text-xs px-2 py-1 rounded-full ${masteryConfig[skill.level].chip}`}>
                           {skill.level}
                         </span>
                       </div>
-                      <div className="w-full h-1.5 bg-slate-700 rounded-full overflow-hidden">
-                        <div className={`h-full rounded-full bg-cyan-300 ${masteryConfig[skill.level].width}`} />
+                      <div
+                        className={`w-full h-1.5 rounded-full overflow-hidden ${
+                          isDarkMode ? "bg-slate-700" : "bg-slate-300"
+                        }`}
+                      >
+                        <div
+                          className={`h-full rounded-full ${
+                            isDarkMode ? "bg-cyan-300" : "bg-cyan-400/70"
+                          } ${masteryConfig[skill.level].width}`}
+                        />
                       </div>
                     </div>
                   ))}
-                  {webDataSkills.length > 3 && (
+                  {programmingLanguages.length > 3 && (
                     <button
                       type="button"
-                      onClick={() => toggleSkillGroup("web")}
-                      className="w-full text-sm font-semibold px-3 py-2 rounded-lg border border-slate-600 text-cyan-200 hover:bg-slate-700 transition"
+                      onClick={() => toggleSkillGroup("programming")}
+                      className={`w-full text-sm font-semibold px-3 py-2 rounded-lg border transition ${
+                        isDarkMode
+                          ? "border-slate-600 text-cyan-200 hover:bg-slate-700"
+                          : "border-cyan-200 text-cyan-700 hover:bg-cyan-50"
+                      }`}
                     >
-                      {expandedSkillGroups.web ? "Voir moins" : "Voir plus"}
+                      {expandedSkillGroups.programming ? "Voir moins" : "Voir plus"}
                     </button>
                   )}
                 </div>
              </div>
 
-             <div className="bg-slate-800/80 border border-slate-700 rounded-2xl p-6 hover:border-blue-500/40 transition">
-                <h3 className="font-bold mb-5 text-emerald-300">Support IT & Réseaux</h3>
+             <div
+               className={`rounded-2xl p-6 border transition ${
+                 isDarkMode
+                   ? "bg-slate-800/80 border-slate-700 hover:border-blue-500/40"
+                   : "bg-slate-50/80 border-slate-200 hover:border-blue-300 shadow-sm"
+               }`}
+             >
+                <h3 className={`font-bold mb-5 ${isDarkMode ? "text-amber-300" : "text-amber-700/90"}`}>
+                  Langues parlées
+                </h3>
                 <div className="space-y-3">
-                  {visibleSupportSkills.map((skill) => (
-                    <div key={skill.name} className="p-3 rounded-lg bg-slate-800 border border-slate-700">
+                  {sortedSpokenLanguages.map((skill) => (
+                    <div
+                      key={skill.name}
+                      className={`p-3 rounded-lg border ${
+                        isDarkMode ? "bg-slate-800 border-slate-700" : "bg-slate-50 border-slate-200"
+                      }`}
+                    >
                       <div className="flex items-center justify-between gap-2 mb-2">
                         <span className="text-sm">{skill.name}</span>
                         <span className={`text-xs px-2 py-1 rounded-full ${masteryConfig[skill.level].chip}`}>
                           {skill.level}
                         </span>
                       </div>
-                      <div className="w-full h-1.5 bg-slate-700 rounded-full overflow-hidden">
-                        <div className={`h-full rounded-full bg-emerald-300 ${masteryConfig[skill.level].width}`} />
+                      <div
+                        className={`w-full h-1.5 rounded-full overflow-hidden ${
+                          isDarkMode ? "bg-slate-700" : "bg-slate-300"
+                        }`}
+                      >
+                        <div
+                          className={`h-full rounded-full ${
+                            isDarkMode ? "bg-amber-300" : "bg-amber-400/70"
+                          } ${masteryConfig[skill.level].width}`}
+                        />
                       </div>
                     </div>
                   ))}
-                  {supportItSkills.length > 3 && (
+                </div>
+             </div>
+
+             <div
+               className={`rounded-2xl p-6 border transition ${
+                 isDarkMode
+                   ? "bg-slate-800/80 border-slate-700 hover:border-blue-500/40"
+                   : "bg-slate-50/80 border-slate-200 hover:border-blue-300 shadow-sm"
+               }`}
+             >
+                <h3 className={`font-bold mb-5 ${isDarkMode ? "text-emerald-300" : "text-emerald-700/90"}`}>
+                  Systèmes d&apos;exploitation
+                </h3>
+                <div className="space-y-3">
+                  {visibleOperatingSystems.map((skill) => (
+                    <div
+                      key={skill.name}
+                      className={`p-3 rounded-lg border ${
+                        isDarkMode ? "bg-slate-800 border-slate-700" : "bg-slate-50 border-slate-200"
+                      }`}
+                    >
+                      <div className="flex items-center justify-between gap-2 mb-2">
+                        <span className="text-sm">{skill.name}</span>
+                        <span className={`text-xs px-2 py-1 rounded-full ${masteryConfig[skill.level].chip}`}>
+                          {skill.level}
+                        </span>
+                      </div>
+                      <div
+                        className={`w-full h-1.5 rounded-full overflow-hidden ${
+                          isDarkMode ? "bg-slate-700" : "bg-slate-300"
+                        }`}
+                      >
+                        <div
+                          className={`h-full rounded-full ${
+                            isDarkMode ? "bg-emerald-300" : "bg-emerald-400/70"
+                          } ${masteryConfig[skill.level].width}`}
+                        />
+                      </div>
+                    </div>
+                  ))}
+                  {operatingSystems.length > 3 && (
                     <button
                       type="button"
-                      onClick={() => toggleSkillGroup("support")}
-                      className="w-full text-sm font-semibold px-3 py-2 rounded-lg border border-slate-600 text-emerald-200 hover:bg-slate-700 transition"
+                      onClick={() => toggleSkillGroup("os")}
+                      className={`w-full text-sm font-semibold px-3 py-2 rounded-lg border transition ${
+                        isDarkMode
+                          ? "border-slate-600 text-emerald-200 hover:bg-slate-700"
+                          : "border-emerald-200 text-emerald-700 hover:bg-emerald-50"
+                      }`}
                     >
-                      {expandedSkillGroups.support ? "Voir moins" : "Voir plus"}
+                      {expandedSkillGroups.os ? "Voir moins" : "Voir plus"}
                     </button>
                   )}
                 </div>
              </div>
 
-             <div className="bg-slate-800/80 border border-slate-700 rounded-2xl p-6 hover:border-blue-500/40 transition">
-                <h3 className="font-bold mb-5 text-violet-300">Design, Montage & Productivité</h3>
+             <div
+               className={`rounded-2xl p-6 border transition ${
+                 isDarkMode
+                   ? "bg-slate-800/80 border-slate-700 hover:border-blue-500/40"
+                   : "bg-slate-50/80 border-slate-200 hover:border-blue-300 shadow-sm"
+               }`}
+             >
+                <h3 className={`font-bold mb-5 ${isDarkMode ? "text-violet-300" : "text-violet-700/90"}`}>
+                  Logiciels
+                </h3>
                 <div className="space-y-3">
-                  {visibleDesignSkills.map((skill) => (
-                    <div key={skill.name} className="p-3 rounded-lg bg-slate-800 border border-slate-700">
+                  {visibleSoftwareTools.map((skill) => (
+                    <div
+                      key={skill.name}
+                      className={`p-3 rounded-lg border ${
+                        isDarkMode ? "bg-slate-800 border-slate-700" : "bg-slate-50 border-slate-200"
+                      }`}
+                    >
                       <div className="flex items-center justify-between gap-2 mb-2">
                         <span className="text-sm">{skill.name}</span>
                         <span className={`text-xs px-2 py-1 rounded-full ${masteryConfig[skill.level].chip}`}>
                           {skill.level}
                         </span>
                       </div>
-                      <div className="w-full h-1.5 bg-slate-700 rounded-full overflow-hidden">
-                        <div className={`h-full rounded-full bg-violet-300 ${masteryConfig[skill.level].width}`} />
+                      <div
+                        className={`w-full h-1.5 rounded-full overflow-hidden ${
+                          isDarkMode ? "bg-slate-700" : "bg-slate-300"
+                        }`}
+                      >
+                        <div
+                          className={`h-full rounded-full ${
+                            isDarkMode ? "bg-violet-300" : "bg-violet-400/70"
+                          } ${masteryConfig[skill.level].width}`}
+                        />
                       </div>
                     </div>
                   ))}
-                  {designSkills.length > 3 && (
+                  {softwareTools.length > 3 && (
                     <button
                       type="button"
-                      onClick={() => toggleSkillGroup("design")}
-                      className="w-full text-sm font-semibold px-3 py-2 rounded-lg border border-slate-600 text-violet-200 hover:bg-slate-700 transition"
+                      onClick={() => toggleSkillGroup("software")}
+                      className={`w-full text-sm font-semibold px-3 py-2 rounded-lg border transition ${
+                        isDarkMode
+                          ? "border-slate-600 text-violet-200 hover:bg-slate-700"
+                          : "border-violet-200 text-violet-700 hover:bg-violet-50"
+                      }`}
                     >
-                      {expandedSkillGroups.design ? "Voir moins" : "Voir plus"}
+                      {expandedSkillGroups.software ? "Voir moins" : "Voir plus"}
                     </button>
                   )}
-                </div>
-             </div>
-
-             <div className="bg-slate-800/80 border border-slate-700 rounded-2xl p-6 hover:border-blue-500/40 transition">
-                <h3 className="font-bold mb-5 text-amber-300">Langues</h3>
-                <div className="space-y-3">
-                  {languageSkills.map((skill) => (
-                    <div key={skill.name} className="p-3 rounded-lg bg-slate-800 border border-slate-700">
-                      <div className="flex items-center justify-between gap-2 mb-2">
-                        <span className="text-sm">{skill.name}</span>
-                        <span className={`text-xs px-2 py-1 rounded-full ${masteryConfig[skill.level].chip}`}>
-                          {skill.level}
-                        </span>
-                      </div>
-                      <div className="w-full h-1.5 bg-slate-700 rounded-full overflow-hidden">
-                        <div className={`h-full rounded-full bg-amber-300 ${masteryConfig[skill.level].width}`} />
-                      </div>
-                    </div>
-                  ))}
                 </div>
              </div>
           </div>
