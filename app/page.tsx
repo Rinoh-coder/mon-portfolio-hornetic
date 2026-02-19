@@ -12,6 +12,7 @@ import {
   Code, 
   Cpu, 
   Download,
+  Eye,
   FileDown,
   Facebook,
   FolderKanban,
@@ -356,8 +357,8 @@ export default function Home() {
                 </ul>
           </p>
           <div className="flex flex-col md:flex-row justify-center gap-4">
-            <Link href="/portfolio" className="px-8 py-4 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition shadow-xl shadow-blue-200/50 flex items-center justify-center gap-2">
-              <Code size={20} /> Voir mon Portfolio
+            <Link href="/portfolio" className="px-8 py-4 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition flex items-center justify-center gap-2">
+              <Eye size={20} /> Voir mon Portfolio
             </Link>
             <a href="#hornetic" className={`px-8 py-4 border rounded-xl font-bold transition flex items-center justify-center gap-2 ${isDarkMode ? "bg-slate-900 border-slate-700 text-slate-200 hover:border-blue-500 hover:text-blue-300" : "bg-white border-slate-200 text-slate-700 hover:border-blue-200 hover:bg-blue-50 hover:text-blue-600"}`}>
               <Wrench size={20} /> Services Hornetic
@@ -481,7 +482,11 @@ export default function Home() {
               <button
                 type="button"
                 onClick={() => setShowFullParcours((prev) => !prev)}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-100 text-slate-700 text-sm font-semibold hover:bg-slate-200 transition"
+                className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition ${
+                  isDarkMode
+                    ? "bg-slate-800 text-slate-100 border border-slate-600 hover:bg-slate-700"
+                    : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+                }`}
               >
                 {showFullParcours ? "Voir moins" : "Voir plus"}
               </button>
@@ -799,7 +804,7 @@ export default function Home() {
                       onClick={() => toggleSkillGroup("programming")}
                       className={`w-full text-sm font-semibold px-3 py-2 rounded-lg border transition ${
                         isDarkMode
-                          ? "border-slate-600 text-cyan-200 hover:bg-slate-700"
+                          ? "border-slate-500 text-slate-100 hover:bg-slate-700"
                           : "border-cyan-200 text-cyan-700 hover:bg-cyan-50"
                       }`}
                     >
@@ -892,7 +897,7 @@ export default function Home() {
                       onClick={() => toggleSkillGroup("os")}
                       className={`w-full text-sm font-semibold px-3 py-2 rounded-lg border transition ${
                         isDarkMode
-                          ? "border-slate-600 text-emerald-200 hover:bg-slate-700"
+                          ? "border-slate-500 text-slate-100 hover:bg-slate-700"
                           : "border-emerald-200 text-emerald-700 hover:bg-emerald-50"
                       }`}
                     >
@@ -945,7 +950,7 @@ export default function Home() {
                       onClick={() => toggleSkillGroup("software")}
                       className={`w-full text-sm font-semibold px-3 py-2 rounded-lg border transition ${
                         isDarkMode
-                          ? "border-slate-600 text-violet-200 hover:bg-slate-700"
+                          ? "border-slate-500 text-slate-100 hover:bg-slate-700"
                           : "border-violet-200 text-violet-700 hover:bg-violet-50"
                       }`}
                     >
